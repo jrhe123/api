@@ -14,6 +14,8 @@
 ###Response description：
 #####Failure to connnect the database
     {"code":400, "message":"fail to connect database!"}
+#####Invalid parameter, return JSON
+    {"code":1001, "message":"parameter format invalid!"}
 #####No requested data found, return JSON
     {"code":1000, "message":"no data found at the target range!"}
 #####Success, return JSON
