@@ -8,22 +8,25 @@
 namespace App\Http\Controllers;
 
 use App\Http\Model\Data;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 
 class IndexController extends Controller
 {
     public function index()
     {
+        /*get the optional parameter*/
         $start_date = strtotime(Input::get('start_date'));
         $end_date = strtotime(Input::get('end_date'));
-
-        $data = Data::all()->toArray();
-        if(empty($data)){
+        /*verify the connect status*/
+        if(!DB::connection()->getPdo()){
             return response()->json([
-                'status'=>400,
+                'code'=>400,
                 'msg'=>'fail to connect database!'
             ]);
         }
+        /*extract the data*/
+        $data = Data::all()->toArray();
         foreach($data as $k=>$v){
             $date = strtotime($v['date']);
             if($start_date && $date < $start_date ){
@@ -32,16 +35,16 @@ class IndexController extends Controller
                 unset($data[$k]);
             }
         }
-
+        /*response the Json result*/
         if(!empty($data)){
             return response()->json([
-                'status'=>200,
+                'code'=>200,
                 'data'=>$data,
                 'msg'=>'successfully return data!'
             ]);
         }else{
             return response()->json([
-                'status'=>1000,
+                'code'=>1000,
                 'msg'=>'no data found at the target range!'
             ]);
         }
