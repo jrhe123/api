@@ -1,5 +1,15 @@
 ##API documentation
-    1.URL：https://demo6656263.herokuapp.com/api
+    
+Restful API by Laravel 5.2 Framework:    
+    
+1.URL：https://demo6656263.herokuapp.com/api
+
+
+
+
+
+Example: 
+    
 ##Category
 1.  [API demo](#1)
 
